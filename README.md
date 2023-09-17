@@ -1,30 +1,77 @@
-# React component canvas painting/draw
+# React canvas draw
 
-<!-- This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Is a library for react js that's you can draw by using only canvas and also come with event you can save or download the canvas in image or value to preview.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Install my-project with **npm** or **yarn**
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+  npm install @veng-t/react-canvas-draw
+  yarn @veng-t/react-canvas-draw
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list -->
+## Demo
+
+Below is a demo for using **react-canvas draw**
+
+## Usage/Examples
+
+```javascript
+import { Canvas } from "./@veng-t/react-canvas-draw";
+
+<Canvas width={1000} height={500} />;
+```
+
+This will render a canvas with width `1000` and height `500` you can modify the value you want.
+
+```javascript
+<Canvas
+  width={1000}
+  height={500}
+  paintColor={#fff}
+/>
+```
+
+Here you can modify the paint/draw color: `#000000`
+
+#### Event trigger
+
+```javascript
+<Canvas
+  width={1000}
+  height={500}
+  paintColor={#fff}
+  buttonComponent={(e) => <button onClick={e}>Save</button>}
+/>
+```
+
+`buttonComponent` prop accept void function return as JSX element which you can pass any html tag or other framework component as you wish. this event is to save the canvas we have created.
+
+```javascript
+
+const getImg = (e: () => string | undefined) => {
+    if (e) {
+      console.log(e);
+    }
+  };
+
+<Canvas
+  width={1000}
+  height={500}
+  paintColor={#fff}
+  submitComponent={(e) => (
+    <button onClick={() => getImg(e)}>Submit</button>
+  )}
+/>
+```
+
+`submitComponent` prop return value as string ( base64 ) image to review or render somewhere as you wish.
+
+## Authors
+
+- [@veng-tear](https://github.com/Tearveng)
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
