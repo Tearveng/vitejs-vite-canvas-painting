@@ -1,4 +1,3 @@
-import Canvas from "./canvas/Canvas";
-
-export { Canvas };
+export { Canvas } from "./canvas/Canvas";
+export type { CanvasProps } from './canvas/Canvas';
 

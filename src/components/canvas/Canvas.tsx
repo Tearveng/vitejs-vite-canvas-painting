@@ -1,13 +1,14 @@
 import { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 
-interface CanvasProps {
+export interface CanvasProps {
   width: number;
   height: number;
   containerStyle?: CSSProperties;
   canvasStyle?: CSSProperties;
   buttonComponent?: (e: () => void) => JSX.Element;
   submitComponent?: (e: () => string | undefined) => JSX.Element;
-  paintWeight?: number
+  paintWeight?: number;
+  paintColor?: string
 }
 
 type Coordinate = {
@@ -25,14 +26,15 @@ type Coordinate = {
     )}
   />
  */
-const Canvas = ({
+export const Canvas = ({
   width,
   height,
   containerStyle,
   canvasStyle,
   buttonComponent,
   submitComponent,
-  paintWeight
+  paintWeight,
+  paintColor
 }: CanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isPainting, setIsPainting] = useState(false);
@@ -77,6 +79,16 @@ const Canvas = ({
       return;
     }
     const canvas: HTMLCanvasElement = canvasRef.current;
+    canvas.width = width;
+    canvas.height = height;
+  }, []);
+
+  useEffect(() => {
+    if (!canvasRef.current) {
+      return;
+    }
+    const canvas: HTMLCanvasElement = canvasRef.current;
+
     canvas.addEventListener("mousemove", paint);
     return () => {
       canvas.removeEventListener("mousemove", paint);
@@ -123,7 +135,7 @@ const Canvas = ({
     const canvas: HTMLCanvasElement = canvasRef.current;
     const context = canvas.getContext("2d");
     if (context) {
-      context.strokeStyle = "red";
+      context.strokeStyle = paintColor ?? 'red';
       context.lineJoin = "round";
       context.lineWidth = paintWeight ?? 4;
 
@@ -178,26 +190,16 @@ const Canvas = ({
       }}
     >
       <canvas
+        id="canvas"
         ref={canvasRef}
-        height={height}
-        width={width}
         style={{
           border: "1px solid red",
-          ...canvasStyle,
         }}
       />
 
-      {buttonComponent!(saveImg)}
+      {buttonComponent && buttonComponent(saveImg)}
 
-      {submitComponent!(viewImg)}
-
+      {submitComponent && submitComponent(viewImg)}
     </div>
   );
 };
-
-Canvas.defaultProps = {
-  width: window.innerWidth,
-  height: window.innerHeight,
-};
-
-export default Canvas;

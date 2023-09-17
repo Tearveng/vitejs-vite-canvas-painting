@@ -17,7 +17,7 @@ export default defineConfig((configEnv) => ({
       linters: [new EsLinter({ configEnv })],
     }),
     dts({
-      include: ['src/components/'],  
+      include: ['src/components/**/*'],  
     }),
   ],
   build: {
@@ -25,7 +25,7 @@ export default defineConfig((configEnv) => ({
       entry: resolve('src', 'components/index.ts'),
       name: 'ReactViteLibrary',
       formats: ['es', 'umd'],
-      fileName: (format) => `react-vite-library.${format}.js`,
+      fileName: (format) => `react-canvas-draw.${format}.js`,
     },
     rollupOptions: {
       external: [...Object.keys(packageJson.peerDependencies)],

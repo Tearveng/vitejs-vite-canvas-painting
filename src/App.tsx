@@ -1,6 +1,5 @@
 import React from "react";
-import "./App.css";
-import Canvas from "./components/canvas/Canvas";
+import { Canvas } from "./components/canvas/Canvas";
 
 function App() {
   const [img, setImg] = React.useState<string>();
@@ -11,22 +10,16 @@ function App() {
     }
   };
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <Canvas
-        width={1000}
-        height={500}
-        buttonComponent={(e) => <button onClick={e}>Save</button>}
-        submitComponent={(e) => (
-          <button onClick={() => getImg(e)}>Submit</button>
-        )}
-      />
-      <img src={img} />
-    </div>
+
+    <Canvas
+      width={1000}
+      height={500}
+      paintColor="#fff"
+      buttonComponent={(e) => <button onClick={e}>Save</button>}
+      submitComponent={(e) => (
+        <button onClick={() => getImg(e)}>Submit</button>
+      )}
+    />
   );
 }
 
